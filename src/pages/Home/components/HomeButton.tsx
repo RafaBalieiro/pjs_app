@@ -1,19 +1,17 @@
-import React from 'react';
-import { TouchableOpacity, Text } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import styles from '../styles';
+import { TouchableOpacity } from "react-native";
+import { FontAwesome5 } from "@expo/vector-icons";
+import styles from "../styles/HomeStyle";
 
 type Props = {
-  icon: keyof typeof Ionicons.glyphMap;
-  label: string;
+  icon: string;
+  color?: string; // Cor personalizada
   onPress?: () => void;
 };
 
-export default function HomeButton({ icon, label, onPress }: Props) {
+export default function HomeButton({ icon, color = "#fff", onPress }: Props) {
   return (
-    <TouchableOpacity style={styles.button} onPress={onPress}>
-      <Ionicons name={icon} size={28} color="#fff" />
-      <Text style={styles.buttonLabel}>{label}</Text>
+    <TouchableOpacity style={styles.menuButton} onPress={onPress}>
+      <FontAwesome5 name={icon} size={28} color={color} />
     </TouchableOpacity>
   );
 }

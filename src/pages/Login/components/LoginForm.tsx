@@ -8,19 +8,25 @@ import {
   TouchableOpacity,
   Text,
 } from "react-native";
+import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 import { useAuth } from "../../../context/AuthContext";
+import styles from "../styles/loginStyle";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { AppStackParamList } from "../../../routes";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const { login } = useAuth();
 
+  const navigation = useNavigation<NativeStackNavigationProp<AppStackParamList>>();
+  
   const handleLogin = () => {
     if (!email || !senha) {
       Alert.alert("Atenção", "Preencha todos os campos");
       return;
     }
-
     login(email, senha);
   };
 
@@ -31,53 +37,58 @@ export default function LoginForm() {
     );
   };
 
+  const handleGoogleLogin = () => {
+    Alert.alert("Google Login", "Funcionalidade de login com o Google");
+    // Aqui você pode integrar o Expo AuthSession ou biblioteca de sua escolha
+  };
+
   return (
     <View style={styles.form}>
-      <TextInput
-        style={styles.input}
-        placeholder="E-mail"
-        keyboardType="email-address"
-        autoCapitalize="none"
-        value={email}
-        onChangeText={setEmail}
-      />
+      <View style={styles.inputContainer}>
+        <MaterialIcons
+          name="email"
+          size={20}
+          color="#fff"
+          style={styles.icon}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Digite seu email"
+          placeholderTextColor="#aaa"
+          keyboardType="email-address"
+          autoCapitalize="none"
+          value={email}
+          onChangeText={setEmail}
+        />
+      </View>
 
-      <TextInput
-        style={styles.input}
-        placeholder="Senha"
-        secureTextEntry
-        value={senha}
-        onChangeText={setSenha}
-      />
+      <View style={styles.inputContainer}>
+        <MaterialIcons name="lock" size={20} color="#fff" style={styles.icon} />
+        <TextInput
+          style={styles.input}
+          placeholder="Digite sua senha"
+          placeholderTextColor="#aaa"
+          secureTextEntry
+          value={senha}
+          onChangeText={setSenha}
+        />
+      </View>
 
-      <Button title="Entrar" onPress={handleLogin} />
+      <TouchableOpacity onPress={handleLogin} style={styles.loginButton}>
+        <Text style={styles.loginButtonText}>Acessar</Text>
+      </TouchableOpacity>
 
-      <TouchableOpacity onPress={handleCadastro} style={styles.cadastroBtn}>
-        <Text style={styles.cadastroText}>Criar conta</Text>
+      <TouchableOpacity onPress={handleGoogleLogin} style={styles.googleButton}>
+        <AntDesign name="google" size={20} color="#fff" />
+        <Text style={styles.googleButtonText}>Entrar com o Google</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.register} onPress={() => navigation.navigate("Register")}>
+        <Text style={styles.registerText}>
+          Não tem uma conta?{" "}
+          <Text style={styles.registerLink}>Cadastre-se</Text>
+        </Text>
       </TouchableOpacity>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  form: {
-    width: "100%",
-  },
-  input: {
-    height: 50,
-    backgroundColor: "#fff",
-    borderRadius: 8,
-    paddingHorizontal: 16,
-    marginBottom: 16,
-    borderWidth: 1,
-    borderColor: "#ccc",
-  },
-  cadastroBtn: {
-    marginTop: 16,
-    alignItems: "center",
-  },
-  cadastroText: {
-    color: "#4f46e5",
-    fontWeight: "600",
-  },
-});

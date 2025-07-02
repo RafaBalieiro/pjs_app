@@ -7,6 +7,12 @@ export default StyleSheet.create({
     backgroundColor: "#f4f4f4",
     flexGrow: 1,
   },
+  logoutContainer: {
+    position: "absolute",
+    top: 50,
+    right: 20,
+    zIndex: 10,
+  },
   title: {
     fontSize: 26,
     fontWeight: "bold",
