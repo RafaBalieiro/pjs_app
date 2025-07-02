@@ -49,10 +49,12 @@ export default function HomeScreen() {
       <ScrollView contentContainerStyle={styles.container}>
         {/* Header com Avatar e XP */}
         <View style={styles.header}>
-          <Image
-            source={require("../../assets/image.png")}
-            style={styles.avatar}
-          />
+          <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
+            <Image
+              source={require("../../assets/image.png")}
+              style={styles.avatar}
+            />
+          </TouchableOpacity>
           <View style={styles.userInfo}>
             <Text style={styles.username}>Rafael Barros</Text>
             <Text style={styles.level}>Nível 12</Text>
@@ -71,7 +73,11 @@ export default function HomeScreen() {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.menuIcons}
         >
-          <HomeButton icon="trophy" color="#FFD700" /> {/* Dourado */}
+          <HomeButton
+            icon="trophy"
+            color="#FFD700"
+            onPress={() => navigation.navigate("Achievements")}
+          />
           <HomeButton icon="medal" color="#00BFFF" /> {/* Azul Claro */}
           <HomeButton icon="book" color="#FF6347" /> {/* Vermelho */}
           <HomeButton icon="chart-bar" color="#32CD32" /> {/* Verde Limão */}
@@ -90,12 +96,27 @@ export default function HomeScreen() {
           </TouchableOpacity>
         </View>
 
-        <ProgressCard
-          title="Estudo diário matemática"
-          progress={0.75}
-          xp="230px"
-          icon="book"
-        />
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate("TaskDetails", {
+              task: {
+                name: "Estudo diário matemática",
+                category: "Estudos",
+                type: "Rotina",
+                duration: "30 min",
+                totalDias: 7,
+                description: "Tarefa diária de reforço em matemática.",
+              },
+            })
+          }
+        >
+          <ProgressCard
+            title="Estudo diário matemática"
+            progress={0.75}
+            xp="230px"
+            icon="book"
+          />
+        </TouchableOpacity>
         <ProgressCard
           title="Academia"
           progress={0.75}

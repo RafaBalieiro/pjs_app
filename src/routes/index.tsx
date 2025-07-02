@@ -15,6 +15,9 @@ import CreateTaskRotineScreen from "../pages/Tarefas/CreateTarefaRotina";
 import CreateTaskKnowledgeScreen from "../pages/Tarefas/CreateTarefaNivelConhecimento";
 import CreateTaskDifficultyScreen from "../pages/Tarefas/CreateTarefaNivelDificuldade";
 import CreateTaskConfirmScreen from "../pages/Tarefas/CreateTarefaConfirmacao";
+import ProfileScreen from "../pages/Perfil/Perfil";
+import AchievementsScreen from "../pages/Conquistas/Conquistas";
+import TaskDetailsScreen from "../pages/Tarefas/DetalhesTarefa";
 
 export type AppStackParamList = {
   Login: undefined;
@@ -56,6 +59,9 @@ export type AppStackParamList = {
     knowledge: string;
     difficulty: number;
   };
+  Profile: undefined;
+  Achievements: undefined;
+  TaskDetails: { task: any };
 };
 
 const Stack = createNativeStackNavigator<AppStackParamList>();
@@ -101,6 +107,9 @@ export default function Routes() {
               name="CreateTaskConfirm"
               component={CreateTaskConfirmScreen}
             />
+            <Stack.Screen name="Profile" component={ProfileScreen} />
+            <Stack.Screen name="Achievements" component={AchievementsScreen} />
+            <Stack.Screen name="TaskDetails" component={TaskDetailsScreen} />
           </>
         ) : (
           <>
